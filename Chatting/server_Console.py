@@ -86,11 +86,11 @@ def handle_client(client_socket, user_messages):
             break
 
     # クライアント接続終了処理 클라이언트 연결 종료 처리
-    client_socket.close()
+    update_userlist(user_messages=user_messages)  # 言語別のメッセージ配信 언어별 메시지 전달
     clients.remove(client_socket)
     del users_id[client_socket]
     print(">>>", now_datetime(), user_messages['disconnected'].format(user_id=user_id))
-    update_userlist(user_messages=user_messages)  # 言語別のメッセージ配信 언어별 메시지 전달
+    client_socket.close()
 
 
 
@@ -133,7 +133,8 @@ def server(host, port, user_messages):
 def start_servers():
     # サーバー設定 서버 설정
     servers = [
-        ('127.0.0.1', 9999),  # サーバーで使用するホストの IP アドレス、PORT 番号 서버에서 사용할 호스트의 IP 주소, PORT 번호
+        # サーバーで使用するホストの IP アドレス、PORT 番号 서버에서 사용할 호스트의 IP 주소, PORT 번호
+        ('192.168.0.9', 3000),
         ('127.0.0.1', 3000),
         ('127.0.0.1', 3001),
         ('127.0.0.1', 3002),
